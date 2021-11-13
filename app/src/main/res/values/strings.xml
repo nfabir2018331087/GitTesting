@@ -6,4 +6,5 @@
     <string name="create">Create a new account</string>
     <string name="fillup">Fill up all the credentials</string>
     <string name="tologin">Already has an account?</string>
+    <string name="expert">Are you an expert in GRE?</string>
 </resources>
