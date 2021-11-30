@@ -22,9 +22,9 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText emailEditText, passEditText;
+    private EditText emailEditText, passEditText, nameText;
     private RadioGroup radioGroup;
-    private RadioButton radioButton;
+    private RadioButton selButton;
     private Button signUpButton;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
@@ -40,7 +40,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         emailEditText = (EditText) findViewById(R.id.editTextTextEmailAddress);
         passEditText = (EditText) findViewById(R.id.editTextTextPassword);
+        nameText = (EditText) findViewById(R.id.editTextTextPersonName);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+       // selButton = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
         signUpButton = (Button) findViewById(R.id.button);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -55,7 +57,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void userRegister() {
         String email = emailEditText.getText().toString().trim();
         String password = passEditText.getText().toString().trim();
+        String name = nameText.getText().toString().trim();
+      //  String expert = selButton.getText().toString().trim();
 
+        if(name.isEmpty()) {
+            nameText.setError("Enter your name");
+            nameText.requestFocus();
+            return;
+        }
         if (email.isEmpty()) {
             emailEditText.setError("Enter an email address");
             emailEditText.requestFocus();
@@ -76,10 +85,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             passEditText.requestFocus();
             return;
         }
-        if (radioGroup.getCheckedRadioButtonId() == 0) {
+        /*if (radioGroup.getCheckedRadioButtonId()==0) {
             Toast.makeText(this, "Select any option", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }*/
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
