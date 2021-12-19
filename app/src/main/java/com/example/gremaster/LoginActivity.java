@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textView.setOnClickListener(this);
         logInButton.setOnClickListener(this);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
-                        } else Toast.makeText(LoginActivity.this, "LogIn Unsuccessful", Toast.LENGTH_SHORT).show();
+                        } else Toast.makeText(LoginActivity.this, "LogIn Unsuccessful", Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -19,15 +19,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText emailEditText, passEditText, nameText;
     private RadioGroup radioGroup;
-    private RadioButton selButton;
+    private RadioButton radioButton1, radioButton2;
     private Button signUpButton;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +38,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         emailEditText = (EditText) findViewById(R.id.editTextTextEmailAddress);
         passEditText = (EditText) findViewById(R.id.editTextTextPassword);
         nameText = (EditText) findViewById(R.id.editTextTextPersonName);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-       // selButton = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+        radioButton1 = (RadioButton) findViewById(R.id.radioButton);
+        radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
         signUpButton = (Button) findViewById(R.id.button);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -51,8 +56,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button) userRegister();
+        if (v.getId() == R.id.button) {
+            userRegister();
+            saveData();
+        }
     }
+
 
     private void userRegister() {
         String email = emailEditText.getText().toString().trim();
@@ -85,10 +94,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             passEditText.requestFocus();
             return;
         }
-        /*if (radioGroup.getCheckedRadioButtonId()==0) {
-            Toast.makeText(this, "Select any option", Toast.LENGTH_SHORT).show();
+        if (!radioButton1.isChecked()&&!radioButton2.isChecked()) {
+            Toast.makeText(this, "One field is empty! Select any option", Toast.LENGTH_SHORT).show();
+            radioGroup.requestFocus();
             return;
-        }*/
+        }
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -96,19 +106,31 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this,"Account created successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this,"Account created successfully", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
                             startActivity(intent);
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Toast.makeText(SignUpActivity.this, "You already have an account", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, "You already have an account", Toast.LENGTH_LONG).show();
                                 Intent intent1 = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent1);
                             }
                             else Toast.makeText(SignUpActivity.this,
-                                    "Error: "+task.getException().getMessage()+" Try Again!", Toast.LENGTH_SHORT).show();
+                                    "Error: "+task.getException().getMessage()+" Try Again!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+    }
+
+    private void saveData() {
+        String name = nameText.getText().toString();
+        String expert = ((RadioButton) findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+
+        String key = databaseReference.push().getKey();
+
+        StoreData storeData = new StoreData(name,expert);
+
+        databaseReference.child(key).setValue(storeData);
+
     }
 }
