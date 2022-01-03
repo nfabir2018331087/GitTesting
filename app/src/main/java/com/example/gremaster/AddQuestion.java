@@ -33,7 +33,7 @@ public class AddQuestion extends AppCompatActivity {
     EditText question;
     Button addBtn;
     FirebaseAuth mAuth;
-    String currentUserID;
+    String currentUserID, userQuestion;
     DatabaseReference reference, allQuestionRef, userQuestionRef;
 
 
@@ -41,6 +41,8 @@ public class AddQuestion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -56,8 +58,13 @@ public class AddQuestion extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userQuestion = question.getText().toString();
+                if(TextUtils.isEmpty(userQuestion)){
+                    Toast.makeText(getApplicationContext(),"Please write your question.",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 new AlertDialog.Builder(AddQuestion.this)
-                        .setMessage("Are you sure you want to Upload this Question?")
+                        .setMessage("Are you sure you want to post this Question?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
@@ -67,6 +74,7 @@ public class AddQuestion extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"Question added successfully",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),Forum.class);
                                 startActivity(intent);
+                                finish();
                             }
                         })
                         .setNegativeButton("No",null)
@@ -78,13 +86,14 @@ public class AddQuestion extends AppCompatActivity {
 
     public void addNewQuestion() {
 
-        String userQuestion=question.getText().toString();
+        /*String userQuestion=question.getText().toString();
 
         if(TextUtils.isEmpty(userQuestion)){
             Toast.makeText(getApplicationContext(),"Please write your question.",Toast.LENGTH_LONG).show();
             return;
         }
-
+*/      String uQKey = userQuestionRef.push().getKey();
+        String allQKey = allQuestionRef.push().getKey();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,11 +112,11 @@ public class AddQuestion extends AppCompatActivity {
 
                         Questions questions = new Questions(name, userDP, userQuestion, saveCurrentTime, saveCurrentDate);
 
-                        String uQKey = userQuestionRef.push().getKey();
+
                         userQuestionRef.child(uQKey).setValue(questions);
 
                         questions.setKey(uQKey);
-                        String allQKey = allQuestionRef.push().getKey();
+
                         allQuestionRef.child(allQKey).setValue(questions);
                     }
 
@@ -119,7 +128,14 @@ public class AddQuestion extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
+        Intent intent = new Intent(getApplicationContext(),Forum.class);
+        startActivity(intent);
+        finish();
     }
 }

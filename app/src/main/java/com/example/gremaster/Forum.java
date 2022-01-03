@@ -98,9 +98,15 @@ public class Forum extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
-
-   /* public static class QuestionViewHolder extends RecyclerView.ViewHolder{
+    /* public static class QuestionViewHolder extends RecyclerView.ViewHolder{
         View view;
         ImageButton likeButton, commentButton;
         TextView noOfLikes, user, userq, ptime, pdate;

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ShareCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -134,7 +135,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String image = snapshot.child(userId).child("profileimage").getValue(String.class);
 
                         navName.setText(name);
-                        navStatus.setText("GRE Expert: " + expert);
+                        if(expert.contains("Yes")) navStatus.setText("Expert");
+                        else navStatus.setText("Learner");
                         Picasso.get().load(image).placeholder(R.drawable.default2).into(navImage);
                     }
                 }

@@ -13,7 +13,8 @@
         android:theme="@style/Theme.GREMaster">
         <activity
             android:name=".AnswersActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
@@ -28,7 +29,8 @@
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".LoginActivity"
             android:exported="false" />

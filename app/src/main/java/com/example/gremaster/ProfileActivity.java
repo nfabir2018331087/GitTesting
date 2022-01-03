@@ -83,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
                         String password = snapshot.child(currentUid).child("password").getValue(String.class);
                         String image = snapshot.child(currentUid).child("profileimage").getValue(String.class);
 
-                        if(expert=="Yes") status.setText("Expert");
+                        if(expert.contains("Yes")) status.setText("Expert");
                         else status.setText("Not Expert");
                         pNameH.setText(name);
                         pName.setText(name);
