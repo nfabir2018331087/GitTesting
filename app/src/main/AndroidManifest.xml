@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GREMaster">
         <activity
+            android:name=".Settings"
+            android:exported="false" />
+        <activity
+            android:name=".MathQuiz"
+            android:exported="false" />
+        <activity
+            android:name=".ResourceOne"
+            android:exported="false" />
+        <activity
             android:name=".Leaderboard"
             android:exported="false" />
         <activity

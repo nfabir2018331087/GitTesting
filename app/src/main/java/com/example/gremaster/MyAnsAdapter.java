@@ -46,6 +46,11 @@ public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.
         likesRef = FirebaseDatabase.getInstance().getReference("all answer likes");
         final String  rKey = getRef(position).getKey();
 
+        if(model.getStatus()!=null) {
+            String status = model.getStatus();
+            if (status.contains("Yes")) holder.expertBtn.setVisibility(View.VISIBLE);
+        }
+
         holder.username.setText(model.getName());
         holder.answer.setText(model.getAnswer());
         holder.time.setText(model.getTime());
@@ -88,7 +93,7 @@ public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.
     }
 
     class AnswerViewHolder extends RecyclerView.ViewHolder{
-        ImageButton likeButton;
+        ImageButton likeButton, expertBtn;
         TextView username, answer, time, date, noOfLikes;
         ImageView userImage;
         int countLikes;
@@ -103,6 +108,7 @@ public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.
             date = (TextView) itemView.findViewById(R.id.ansDate);
             likeButton = (ImageButton) itemView.findViewById(R.id.ansLikeButton);
             noOfLikes = (TextView) itemView.findViewById(R.id.ansLikes);
+            expertBtn = (ImageButton) itemView.findViewById(R.id.expertId);
         }
 
         public void setLikeButtonStatus(String postKey) {

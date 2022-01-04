@@ -1,16 +1,14 @@
 package com.example.gremaster;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,11 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
-public class VocabularyQuiz extends AppCompatActivity {
+public class MathQuiz extends AppCompatActivity {
 
     private ScrollView scroll;
     private RadioGroup radioGroupOne;
@@ -37,7 +31,6 @@ public class VocabularyQuiz extends AppCompatActivity {
     private RadioButton question3;
     private RadioButton question4;
     private RadioButton question5;
-    //int correctAnswers;
     DatabaseReference reference, quizRef;
     FirebaseAuth mAuth;
     String currentUserID;
@@ -45,7 +38,7 @@ public class VocabularyQuiz extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vocabulary_quiz);
+        setContentView(R.layout.activity_math_quiz);
 
         scroll = (ScrollView) findViewById(R.id.Scroll);
 
@@ -72,31 +65,31 @@ public class VocabularyQuiz extends AppCompatActivity {
     public void SubmitResponse(View v) {
 
         if (question1.isChecked()) {
-            MainActivity.vMarks++;
+            MainActivity.mMarks++;
         }
 
         if (question2.isChecked()) {
-            MainActivity.vMarks++;
+            MainActivity.mMarks++;
         }
 
         if (question3.isChecked()) {
-            MainActivity.vMarks++;
+            MainActivity.mMarks++;
         }
 
         if (question4.isChecked()) {
-            MainActivity.vMarks++;
+            MainActivity.mMarks++;
         }
 
         if (question5.isChecked()) {
-            MainActivity.vMarks++;
+            MainActivity.mMarks++;
         }
 
 
 
-        if (MainActivity.vMarks == 5) {
+        if (MainActivity.mMarks == 5) {
             Toast.makeText(this, "Congrats, All Answers are Correct  \n Thanks for attempting this Quiz ", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Correct Answers: " + MainActivity.vMarks + "/5", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Correct Answers: " + MainActivity.mMarks + "/5", Toast.LENGTH_LONG).show();
         }
 
         reference.addValueEventListener(new ValueEventListener() {
