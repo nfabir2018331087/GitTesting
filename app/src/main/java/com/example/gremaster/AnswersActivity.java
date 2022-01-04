@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+//Adding answers in forum
 public class AnswersActivity extends AppCompatActivity {
 
     RecyclerView answersList;
@@ -50,6 +53,7 @@ public class AnswersActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) currentUserID=mAuth.getCurrentUser().getUid();
 
+        //Firebase references for adding answers
         allAnsRef= FirebaseDatabase.getInstance().getReference("all questions").child(postKey).child("answers");
         reference = FirebaseDatabase.getInstance().getReference("users");
 
@@ -69,6 +73,8 @@ public class AnswersActivity extends AppCompatActivity {
         answer = findViewById(R.id.answersInput);
         userAnswer = answer.getText().toString();
         ansBtn = findViewById(R.id.addAns);
+
+        //Dialogue box for answers
         ansBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +92,11 @@ public class AnswersActivity extends AppCompatActivity {
                                 addNewAnswer();
                                 answer.setText("");
                                 Toast.makeText(getApplicationContext(),"Answered successfully",Toast.LENGTH_SHORT).show();
-                                answersList.requestFocus();
+                                View view = getCurrentFocus();
+                                if (view != null) {
+                                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                                }
                             }
                         })
                         .setNegativeButton("No",null)
@@ -103,6 +113,7 @@ public class AnswersActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     if(currentUserID!=null) {
+                        //Fetching data from users
                         String name = dataSnapshot.child(currentUserID).child("name").getValue(String.class);
                         //String username = dataSnapshot.child(currentUserID).child("username").getValue(String.class);
                         String userDP = dataSnapshot.child(currentUserID).child("profileimage").getValue(String.class);
@@ -118,6 +129,7 @@ public class AnswersActivity extends AppCompatActivity {
 
                         answers.setKey(key);
 
+                        //Storing data through model class
                         allAnsRef.child(key).setValue(answers);
                     }
 
@@ -134,12 +146,14 @@ public class AnswersActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //Recycler view adapter starting
         myAnsAdapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        //recycler view adapter stopping
         myAnsAdapter.stopListening();
     }
 

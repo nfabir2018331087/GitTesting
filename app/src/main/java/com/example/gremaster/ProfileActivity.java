@@ -35,21 +35,19 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser currentUser;
     String currentUid;
     ImageView pImage;
-    EditText pName,pUsername,pEmail,pPassword;
-    TextView pNameH,status;
+    TextView pName,pUsername,pEmail,pPassword,pStatus;
     final static int GALLERY_PICK = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        pNameH = findViewById(R.id.profileNameH);
         pImage = findViewById(R.id.profileImage);
         pName = findViewById(R.id.profileName);
-        pUsername = findViewById(R.id.profileUsername);
+        pUsername = findViewById(R.id.profileUserName);
         pEmail = findViewById(R.id.profileEmail);
-        pPassword = findViewById(R.id.profilePassword);
-        status = findViewById(R.id.greStatus);
+        pPassword = findViewById(R.id.profilePass);
+        pStatus = findViewById(R.id.greStatus);
 
         pImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,9 +81,8 @@ public class ProfileActivity extends AppCompatActivity {
                         String password = snapshot.child(currentUid).child("password").getValue(String.class);
                         String image = snapshot.child(currentUid).child("profileimage").getValue(String.class);
 
-                        if(expert.contains("Yes")) status.setText("Expert");
-                        else status.setText("Not Expert");
-                        pNameH.setText(name);
+                        if(expert.contains("Yes")) pStatus.setText("Expert");
+                        else pStatus.setText("Not Expert");
                         pName.setText(name);
                         pUsername.setText(username);
                         pEmail.setText(email);

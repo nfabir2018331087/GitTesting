@@ -1,5 +1,7 @@
 package com.example.gremaster;
 
+
+//Model class for storing answers in forum
 public class Answers {
 
     private String name, profileImage, answer, time, date, key;

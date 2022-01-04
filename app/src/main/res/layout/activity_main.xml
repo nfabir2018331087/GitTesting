@@ -13,16 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@drawable/mainbg"
         >
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="#656262"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:background="#163835"
             app:title="GRE Master"
-            app:titleMarginStart="30dp"
+            app:titleMarginStart="20dp"
             />
         <TextView
             android:id="@+id/textView11"
@@ -30,22 +31,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/quiz"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginStart="10dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
+        <ImageButton
+            android:id="@+id/vocButton1"
+            android:layout_width="170dp"
+            android:layout_height="120dp"
             android:layout_marginTop="20dp"
-            android:text="@string/voc"
-            android:textSize="20sp"
-            android:layout_gravity="center"
+            android:src="@drawable/voc"
+            android:layout_marginStart="10dp"
             android:onClick="quizButtonClicked"
+            android:scaleType="fitXY"
+            android:backgroundTint="@color/white"/>
+
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="@string/voc"
             android:fontFamily="@font/balthazar"
-            android:backgroundTint="#615454"/>
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
 
         <TextView
             android:id="@+id/textViewF"
@@ -54,16 +65,16 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:text="@string/forum"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             />
 
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:id="@+id/forumButton"
-            android:src="@drawable/forum"
+            android:src="@drawable/forum2"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:scaleType="fitXY"
@@ -78,7 +89,7 @@
             android:textSize="20sp"
             android:fontFamily="@font/balthazar"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
 
 
         <LinearLayout
@@ -91,9 +102,10 @@
                 android:id="@+id/learnButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Learn"
+                android:text="Leaderboard"
                 android:textSize="15sp"
-                android:layout_marginEnd="30dp"/>
+                android:layout_marginEnd="30dp"
+                android:onClick="openLeaderboard"/>
             <Button
                 android:id="@+id/recourceButton"
                 android:layout_width="wrap_content"

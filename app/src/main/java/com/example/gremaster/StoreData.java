@@ -1,5 +1,6 @@
 package com.example.gremaster;
 
+//Model class for storing users data
 public class StoreData {
 
     private String name, expert, username, email, password;
@@ -55,5 +56,4 @@ public class StoreData {
     public void setExpert(String expert) {
         this.expert = expert;
     }
-
 }

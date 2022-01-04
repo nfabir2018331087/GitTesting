@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
+//Adding question in forum
 public class AddQuestion extends AppCompatActivity {
 
     EditText question;
@@ -48,6 +49,7 @@ public class AddQuestion extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) currentUserID=mAuth.getCurrentUser().getUid();
 
+        //firebase references for questions and users
         allQuestionRef= FirebaseDatabase.getInstance().getReference("all questions");
         userQuestionRef = FirebaseDatabase.getInstance().getReference("user questions").child(currentUserID);
         reference = FirebaseDatabase.getInstance().getReference("users");
@@ -55,6 +57,8 @@ public class AddQuestion extends AppCompatActivity {
 
         question= (EditText) findViewById(R.id.question);
         addBtn=(Button) findViewById(R.id.addBtn);
+
+        //Dialogue box for  adding questions
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,8 +103,8 @@ public class AddQuestion extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     if(currentUserID!=null) {
+                        //Fetching data from users
                         String name = dataSnapshot.child(currentUserID).child("name").getValue(String.class);
-                        //String username = dataSnapshot.child(currentUserID).child("username").getValue(String.class);
                         String userDP = dataSnapshot.child(currentUserID).child("profileimage").getValue(String.class);
                         Calendar calForDate = Calendar.getInstance();
                         SimpleDateFormat currentDate = new SimpleDateFormat("dd.MM.yy", Locale.US);
@@ -112,7 +116,7 @@ public class AddQuestion extends AppCompatActivity {
 
                         Questions questions = new Questions(name, userDP, userQuestion, saveCurrentTime, saveCurrentDate);
 
-
+                        //storing data through model class
                         userQuestionRef.child(uQKey).setValue(questions);
 
                         questions.setKey(uQKey);

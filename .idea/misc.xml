@@ -15,12 +15,14 @@
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_add_question.xml" value="0.25" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_answers.xml" value="0.27447916666666666" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_forum.xml" value="0.25" />
+        <entry key="..\:/GitTesting/app/src/main/res/layout/activity_leaderboard.xml" value="0.27447916666666666" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_profile.xml" value="0.264" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/activity_vocabulary_quiz.xml" value="0.25" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/design_answer.xml" value="0.264" />
+        <entry key="..\:/GitTesting/app/src/main/res/layout/design_leaderboard.xml" value="0.27447916666666666" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/design_question.xml" value="0.4" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/nav_header.xml" value="0.25" />
         <entry key="..\:/GitTesting/app/src/main/res/layout/splash_screen.xml" value="0.25" />

@@ -1,5 +1,6 @@
 package com.example.gremaster;
 
+//Model class for storing questions in forum
 public class Questions {
 
         private String name, profileImage, question, time, date, key;
@@ -54,11 +55,11 @@ public class Questions {
             this.date = date;
         }
 
-    public String getKey() {
+        public String getKey() {
         return key;
     }
 
-    public void setKey(String key) {
+        public void setKey(String key) {
         this.key = key;
     }
 }

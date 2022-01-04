@@ -52,12 +52,14 @@ public class Forum extends AppCompatActivity implements View.OnClickListener {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) currentUserID=mAuth.getCurrentUser().getUid();
 
+        //Firebase data references
         allQuestionRef= FirebaseDatabase.getInstance().getReference("all questions");
         userQuestionRef = FirebaseDatabase.getInstance().getReference("user questions").child(currentUserID);
         likesRef = FirebaseDatabase.getInstance().getReference("all likes");
         likeListRef = FirebaseDatabase.getInstance().getReference("all likes list").child(currentUserID);
         reference = FirebaseDatabase.getInstance().getReference("users");
 
+        //Initializing recycler view
         questionsList = findViewById(R.id.questionsList);
         questionsList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -78,12 +80,14 @@ public class Forum extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    //Starting Recycler view adapter on start
     @Override
     protected void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    //Stopping Recycler view adapter on stop
     @Override
     protected void onStop() {
         super.onStop();

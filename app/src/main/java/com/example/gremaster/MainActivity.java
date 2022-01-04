@@ -14,6 +14,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -68,6 +69,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.dark_teal, this.getTheme()));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.teal_700));
+        }
+
+        //Vocabulary notification send
         FirebaseMessaging.getInstance().subscribeToTopic("Vocabulary")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -202,6 +210,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void goToForum(View view) {
         Intent intent = new Intent(getApplicationContext(),Forum.class);
+        startActivity(intent);
+    }
+
+    public void openLeaderboard(View view) {
+        Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
         startActivity(intent);
     }
 }
