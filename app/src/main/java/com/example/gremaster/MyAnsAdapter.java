@@ -27,12 +27,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
+//adapter for showing data on recycler view of answers
 public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.AnswerViewHolder> {
     boolean likeChecker = false;
     DatabaseReference likesRef;
     FirebaseAuth mAuth;
     String currentUserID;
 
+    //recycler view adapter for showing data on the answers page
     public MyAnsAdapter(@NonNull FirebaseRecyclerOptions<Answers> options) {
         super(options);
     }
@@ -59,6 +61,7 @@ public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.
 
         holder.setLikeButtonStatus(rKey);
 
+        //setting up the like button functionality
         holder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,12 +70,12 @@ public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(likeChecker){
-                                if (dataSnapshot.child(rKey).hasChild(currentUserID)) {
-                                    likesRef.child(rKey).child(currentUserID).removeValue();
-                                } else {
-                                    likesRef.child(rKey).child(currentUserID).setValue(true);
-                                }
-                                likeChecker = false;
+                            if (dataSnapshot.child(rKey).hasChild(currentUserID)) {
+                                likesRef.child(rKey).child(currentUserID).removeValue();
+                            } else {
+                                likesRef.child(rKey).child(currentUserID).setValue(true);
+                            }
+                            likeChecker = false;
                         }
                     }
 
@@ -85,6 +88,7 @@ public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.
         });
     }
 
+    //answer view holder class
     @NonNull
     @Override
     public MyAnsAdapter.AnswerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -111,6 +115,7 @@ public class MyAnsAdapter extends FirebaseRecyclerAdapter<Answers, MyAnsAdapter.
             expertBtn = (ImageButton) itemView.findViewById(R.id.expertId);
         }
 
+        //setting up like button status
         public void setLikeButtonStatus(String postKey) {
             likesRef.addValueEventListener(new ValueEventListener() {
                 @Override
